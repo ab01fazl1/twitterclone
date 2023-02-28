@@ -1,0 +1,74 @@
+            <li style="padding: 10px;padding-bottom: 10px;">
+                <a href="{{twt.username}}/tweet/{{twt.id}}/">
+
+                    <div>
+                        {% if twt.liked_by %}
+                            <p style="font-size: small;font-style: italic;">we are showing you this tweet because its liked by
+                                <a href="/{{twt.liked_by}}/">{{ twt.liked_by }}</a>
+                            </p>
+                        {% endif %}
+
+                        {% if twt.retweet_by %}
+                            {% if twt.retweet_by == request.user %}
+                                <p style="font-size: small;font-style: italic;">
+                                    <a href="/{{twt.retweet_by}}/">you</a> retweeted
+                                </p>
+                            {% else %}
+                                <p style="font-size: small;font-style: italic;">
+                                    <a href="/{{twt.retweet_by}}/">{{ twt.retweet_by }}</a> retweeted
+                                </p>
+                            {% endif %}
+                        {% endif %}
+
+                        <h4><a href="/{{twt.username}}/">{{ twt.username }}</a></h4>
+                        <span>{{ twt.created_at }}</span><br/><br/>
+                        <p>{{ twt.text }}</p>
+
+                        <div>
+                            <span>
+
+                                {% if twt.like_check ==  True %}
+                                    <a href="/like/{{twt.id}}/" style="color:red;">
+                                        <i class="bi bi-heart-fill"></i>
+                                        {{ twt.likecount }}
+                                    </a>
+                                {% else %}
+                                    <a href="/like/{{twt.id}}/">
+                                        <i class="bi bi-heart"></i>
+                                        {{ twt.likecount }}
+                                    </a>
+                                {% endif %}
+
+                            <span>
+                                <a href="/create_reply/{{twt.id}}">
+                                    comments: {{ twt.commentcount }}
+                                </a>
+                            </span>
+
+                            <span>
+                                <a href="/create_quote/{{twt.id}}">
+                                    retweets: {{ twt.retweetcount }}
+                                </a>
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    {% if twt.quote %}
+                        <div style="border: 3px solid green;padding: 10px;margin: 10px;">
+                            <h4>{{ twt.quote.username }}</h4>
+                            <span>{{ twt.quote.created_at }}</span>
+                            <p>{{ twt.quote.text }}</p>
+
+                            <div>
+                                <span><i class="bi bi-heart-fill"></i>{{ twt.likecount }}</span>
+                                <span>comments: {{ twt.commentcount }}</span>
+                                <span>retweetts: {{ twt.retweetcount }}</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                </a>
+            </li>
+            </hr>
+        {% endfor %}

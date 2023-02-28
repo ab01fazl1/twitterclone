@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+{% block content %}
+<ul>
+    {% for r in retweets %}
+    <li>
+        <a href="/{{ r.user }}/">
+            {{ r.user }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

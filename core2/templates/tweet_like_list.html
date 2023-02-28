@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+{% block content %}
+<ul>
+    {% for l in likes %}
+    <li>
+        <a href="/{{ l.user }}/">
+            {{ l.user }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

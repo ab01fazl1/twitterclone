@@ -1,0 +1,158 @@
+{% extends "index.html" %}
+{% block content %}
+<div>
+
+    <div>
+        <h1>
+            {{ object.username }}
+<!--            {% if user.do_i_follow(object) %}-->
+<!--                <a href="/{{object.username}}/unfollow/">following</a>-->
+<!--            {% else %}-->
+<!--                <a href="/{{object.username}}/follow/">follow</a>-->
+<!--            {%endif%}-->
+        </h1>
+        <p>
+            {{ object.tweets.all.count  }} tweets
+        </p>
+    </div>
+
+    <div>
+        <p>
+            following:
+            {{ object.get_following.count }}
+        </p>
+        <p>
+            follower:
+            {{ object.get_followers.count }}
+        </p>
+        <p>
+            joined:
+            {{ object.date_joined|date:'M Y'  }}
+        </p>
+
+    </div>
+    <hr>
+
+
+    <div>
+      <a href='/{{ object.username }}/' style="margin-right: 20px;">tweets</a>
+      <a href='/{{ object.username }}/with_replies/'>tweets and replies</a>
+    </div>
+    <hr>
+
+
+<!--add delete button down here-->
+
+
+
+<!--    <div>-->
+<!--      {% for t in tweets %}-->
+<!--        user:{{ t.user }}<br/>-->
+<!--        text:{{ t.text }}<br/>-->
+<!--        -time:{{ t.created_at }}<br/>-->
+<!--        -likes:{{t.tweet_count }}<hr/>-->
+<!--      {% endfor %}-->
+<!--    </div>-->
+
+<!--    {% if user.username == object.username and object.get_following.count > 0 %}-->
+        <ul>
+            {% if tweets %}
+                {% for twt in tweets %}
+
+                    <li style="padding: 10px;">
+                        <a href="{{twt.username}}/tweet/{{twt.id}}/">
+
+                            <div>
+                                {% if twt.liked_by %}
+                                    <p style="font-size: small;font-style: italic;">we are showing you this tweet because its liked by
+                                        <a href="/{{twt.liked_by}}/">{{ twt.liked_by }}</a>
+                                    </p>
+                                {% endif %}
+
+                                {% if twt.retweet_by %}
+                                    {% if twt.retweet_by == request.user %}
+                                        <p style="font-size: small;font-style: italic;">
+                                            <a href="/{{twt.retweet_by}}/">you</a> retweeted
+                                        </p>
+                                    {% else %}
+                                        <p style="font-size: small;font-style: italic;">
+                                            <a href="/{{twt.retweet_by}}/">{{ twt.retweet_by }}</a> retweeted
+                                        </p>
+                                    {% endif %}
+                                {% endif %}
+
+                                <h4><a href="/{{twt.username}}/">{{ twt.username }}</a></h4>
+                                <!--follow button-->
+                                {% if user.username != twt.username %}
+                                    {% if twt.status %}
+                                    <a href="/{{twt.username}}/unfollow/">{{ twt.status }}</a>
+                                    {% else %}
+                                    <a href="/{{twt.username}}/follow/">follow</a>
+                                    {%endif%}
+                                {%endif%}
+                                <span>{{ twt.created_at }}</span><br/><br/>
+                                <p>{{ twt.text }}</p>
+
+                                <div>
+                                    <span>
+
+                                        {% if twt.like_check ==  True %}
+                                            <a href="/like/{{twt.id}}/" style="color:red;margin-right: 15px">
+                                                <i class="bi bi-heart-fill"></i>
+                                                {{ twt.likecount }}
+                                            </a>
+                                        {% else %}
+                                            <a href="/like/{{twt.id}}/" style="margin-right: 15px;">
+                                                <i class="bi bi-heart"></i>
+                                                {{ twt.likecount }}
+                                            </a>
+                                        {% endif %}
+
+                                    <span>
+                                        <a href="/create_reply/{{twt.id}}" style="margin-right: 15px;">
+                                            comments: {{ twt.commentcount }}
+                                        </a>
+                                    </span>
+
+                                    <span>
+                                        <a href="/create_quote/{{twt.id}}" style="margin-right: 15px;">
+                                            retweets: {{ twt.retweetcount }}
+                                        </a>
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            {% if twt.quote %}
+                                <div style="border: 3px solid green;padding: 10px;margin: 10px;">
+                                    <h4>{{ twt.quote.username }}</h4>
+                                    <span>{{ twt.quote.created_at }}</span>
+                                    <p>{{ twt.quote.text }}</p>
+
+                                    <div>
+                                        <span style="margin-right: 15px;"><i class="bi bi-heart-fill"></i>{{ twt.likecount }}</span>
+                                        <span style="margin-right: 15px;">comments: {{ twt.commentcount }}</span>
+                                        <span style="margin-right: 15px;">retweetts: {{ twt.retweetcount }}</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </a>
+                    </li>
+                    <hr>
+
+                {% endfor %}
+            {% endif %}
+        </ul>
+
+<!--    {% else %}-->
+<!--        <div>-->
+<!--            <h2>you need to follow people asap</h2>-->
+<!--        </div>-->
+<!--    {% endif %}-->
+
+</div>
+
+
+
+{% endblock %}

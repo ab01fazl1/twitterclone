@@ -1,0 +1,58 @@
+{% extends "index.html" %}
+{% block content %}
+    <div>
+        <div>
+            {% if twt.liked_by %}
+                <p style="font-size: small;font-style: italic;">
+                    we are showing you this tweet because its liked by {{ twt.liked_by }}</p>
+            {% endif %}
+
+            {% if twt.retweet_by %}
+                {% if twt.retweet_by == request.user %}
+                    <p>you retweeted</p>
+                {% else %}
+                    <p>{{ twt.retweet_by }} retweeted</p>
+                {% endif %}
+            {% endif %}
+
+            <div>
+                <h4>{{ twt.username }}</h4>
+                <span>{{ twt.created_at }}</span><br/>
+                <p>{{ twt.text }}</p>
+            </div>
+
+            <div>
+                <span><i class="bi bi-heart-fill"></i>{{ twt.likecount }}</span>
+                <span>{{ twt.commentcount }}</span>
+                <span>{{ twt.retweetcount }}</span>
+            </div>
+
+        </div>
+
+        {% if twt.reply %}
+            <div style="border: 3px solid red;padding: 10px;margin-bottom: 10px;">
+                <p>this is a reply to {{ twt.username }}</p>
+                <h4>{{ twt.reply.username }}</h4>
+                <span>{{ twt.reply.created_at }}</span>
+                <p>{{ twt.reply.text }}</p>
+            </div>
+        {% endif %}
+
+
+        {% if twt.quote %}
+            <div style="border: 3px solid green;padding: 10px;margin-bottom: 10px;">
+                <h4>{{ twt.quote.username }}</h4>
+                <span>{{ twt.quote.created_at }}</span>
+                <p>{{ twt.quote.text }}</p>
+
+                <div>
+                    <span><i class="bi bi-heart-fill"></i>{{ twt.likecount }}</span>
+                    <span>{{ twt.commentcount }}</span>
+                    <span>{{ twt.retweetcount }}</span>
+                </div>
+
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
