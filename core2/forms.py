@@ -10,8 +10,4 @@ class SignUpForm(UserCreationForm):
 
 
 class CreateTweetForm(forms.Form):
-    # class Meta:
-    #     model = Tweet
-    #     fields = ('text',)
     text = forms.CharField(label='text',max_length=350)
-    # reply = forms.HiddenInput()

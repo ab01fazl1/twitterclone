@@ -1,21 +1,3 @@
-'''
-there is a lot of code to be checked to see if they work right
-in models,urls,views,forms,templates
-users should be able to sing in with email and username and phone number
-for latter make a phone number verification
-email verification
-those probably are handled with library
-use oauth library
-what should i do next
-now i have some better idea for tweets
-likes def should be their own class
-but for replies and retweets and retweets with comments i should figure something out
-replies could be a lil complicated cause their could be a thousand replied nested together and i think replies
-can have pitures gifs and videos too
-it should be a file field but only the types of files that we want
-not any file -for security-django might handle that itself-check that out
-'''
-
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
@@ -189,12 +171,6 @@ class Relationship(models.Model):
 
 
 
-
-
-'''qoute-retweet-get methods-get count methods-
-every tweet qoute retweet should point to the original tweet so all of them are clickable
-text should be replaced with body we can add images and other media and 350char text'''
-
 class Tweet(models.Model):
     user = models.ForeignKey(User,related_name='tweets',on_delete=models.CASCADE)
     text = models.TextField(max_length=350)
@@ -202,7 +178,7 @@ class Tweet(models.Model):
     is_reply = models.BooleanField(default=False)
     is_quote = models.BooleanField(default=False)
 
-    #this ondelete should be changed
+    # TODO this ondelete should be changed
     reply_to_tweet = models.ForeignKey('self',related_name='replies',null=True,blank=True,on_delete=models.CASCADE)
     quote_to_tweet = models.ForeignKey('self',related_name='quotes',null=True,blank=True,on_delete=models.CASCADE)
 
@@ -228,15 +204,7 @@ class Retweet(models.Model):
     tweet = models.ForeignKey(Tweet, related_name='retweets',on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
-# class Quote(models.Model):
-#     user = models.ForeignKey(User,related_name='quotes_by_user',on_delete=models.CASCADE)
-#     qoute_tweet = models.ForeignKey(Tweet,related_name='quotes',on_delete=models.CASCADE)
-#     created_at = models.DateTimeField(auto_now_add=True)
 
-
-
-#get_user_likes and get_tweet_likes
-#can i like my own tweet?Yes
 class Like(models.Model):
     user = models.ForeignKey(User,related_name='likes_of_user',on_delete=models.CASCADE)
     tweet = models.ForeignKey(Tweet,related_name='likes_of_tweet',on_delete=models.CASCADE)
