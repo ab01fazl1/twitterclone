@@ -12,8 +12,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+import os
+import sys
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -29,6 +32,18 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+APPS = [
+    'core.apps.CoreConfig',
+    'user.apps.UserConfig',
+    'tweet.apps.TweetConfig',
+    'following.apps.FollowingConfig',
+    'like.apps.LikeConfig',
+    'Hashtag.apps.HashtagConfig',
+]
+FRAMEWORKS = [
+    'rest_framework',
+    'arrow',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,11 +52,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core2',
-]
+] + APPS + FRAMEWORKS
 
-AUTH_USER_MODEL = 'core2.User'
-LOGIN_REDIRECT_URL = 'home'
+# AUTH_USER_MODEL = 'apps.user.User'
+# LOGIN_REDIRECT_URL = 'home'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -126,3 +140,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# include apps directory
+sys.path.append(os.path.join(BASE_DIR, 'apps'))
