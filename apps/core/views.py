@@ -146,3 +146,9 @@
 #         h = Hashtag.objects.create(name=hashtag)
 #         h.tweet.add(tweet)
 #         h.save()
+
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+@api_view()
+def entry(request):
+    return Response('ok')

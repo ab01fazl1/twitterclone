@@ -1,34 +1,24 @@
 from django.urls import path, include
-from user import urls
-from tweet import urls
+from .views import entry
+from rest_framework_nested import routers
+from user.views import UserViewSet
+from tweet.views import TweetUserViewSet
 
-# from django.contrib.auth import views as auth_views
-# from django.contrib.auth.decorators import login_required
-#
-# from .views import signup,create_tweet,create_reply,\
-#     profile_view,profile_view_with_replies,home,entry,tweet_detail_view,\
-#     like,quote,tweet_like_list,tweet_quote_list,tweet_retweet_list,follow,unfollow
-#
-#
-# # from .views import testhome
-#
+
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet, basename="users")
+users_router = routers.NestedDefaultRouter(router, 'users', lookup='users')
+users_router.register(r'tweets', TweetUserViewSet, basename='tweets')
+
 urlpatterns = [
-#     # core
-#     path('', entry, name='entry'),
-#     path('home/',login_required(home),name='home'),
-#
+    path('', include(router.urls)),
+    path('', include(users_router.urls)),
+    # core
+    path('', entry, name='entry'),
+
     # users
-    path('', include('user.urls')),
+    # path('', include('user.urls')),
 
     # tweet
-    path('', include('tweet.urls')),
-#
-#     # relationship
-#     path('<str:username>/follow/', follow, name='follow'),
-#     path('<str:username>/unfollow/', unfollow, name='unfollow'),
-#
-#     # like
-#     path('like/<int:tweet_pk>/', login_required(like), name='like'),
+    # path('', include('tweet.urls')),
 ]
-#
-# # path('api-auth/', include('rest_framework.urls'))

@@ -43,6 +43,7 @@ APPS = [
 FRAMEWORKS = [
     'rest_framework',
     'arrow',
+    'rest_framework_nested',
 ]
 
 INSTALLED_APPS = [

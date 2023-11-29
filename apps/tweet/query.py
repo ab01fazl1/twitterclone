@@ -1,6 +1,8 @@
 from .models import Tweet, Quote, Reply, Retweet
 from like.models import Like
 
+def users_tweets(user):
+    return Tweet.objects.filter(user__pk=user)
 # the likes of a tweet
 def tweet_like_list(user, tweet_pk):
     pass
