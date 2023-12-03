@@ -1,16 +1,8 @@
-from django.shortcuts import render
-from rest_framework.views import APIView
 from .models import Tweet, Reply, Quote
-from rest_framework.response import Response
 from rest_framework import generics
-from django.http import Http404
-from rest_framework import status
-from .serializers import TweetSerializer, ReplySerializer, QuoteSerializer, TweetUserSerializer
+from .serializers import TweetSerializer, ReplySerializer, QuoteSerializer
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, ListModelMixin
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.views import get_view_description
-from rest_framework.decorators import api_view
-from .query import users_tweets
 
 
 class TweetView(CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, ListModelMixin, GenericViewSet):

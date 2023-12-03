@@ -1,8 +1,25 @@
-# twitterclone
-a basic twitter backend developed with python and django
-this project has twitters:
-  tweet function, comment function, loging, sign up, home feed and ...
-  
-## what i have learned and used in this project
-  django urls,orm,models,model relations,class based views,function based view,class decorators,auth,userauth,cvm and ....
+# Twitter Clone
+a minimal twitter backend developed with Django
 
+## latest changes
+db: PostgreSQL
+
+updated all the structures
+
+added DRF
+
+changed the design and implementation of SOLID and DRY principles
+
+## how to install and run
+coming soon ...
+
+## upcoming updates
+containerization with docker
+
+caching with redis
+
+Testing
+
+celery
+
+message broking with rabbitMQ

@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ] + APPS + FRAMEWORKS
 
-# AUTH_USER_MODEL = 'apps.user.User'
+AUTH_USER_MODEL = 'user.User'
 # LOGIN_REDIRECT_URL = 'home'
 
 MIDDLEWARE = [

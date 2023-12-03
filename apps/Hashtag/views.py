@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework.viewsets import ModelViewSet
+from .serializers import HashtagSerializer
+from .models import Hashtag
 
-# Create your views here.
+
+class HashtagViewSet(ModelViewSet):
+    serializer_class = HashtagSerializer
+    queryset = Hashtag.objects.all()
