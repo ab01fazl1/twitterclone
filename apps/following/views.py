@@ -1,15 +1,15 @@
-from django.shortcuts import render
-
-# Create your views here.
-@require_http_methods(["POST"])
-def follow(request, username):
-    u = User.objects.get(username__iexact=username)
-    Relationship.objects.create(from_user=request.user, to_user=u, status=1)
-    return redirect('/')
+from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView
+from .models import Relationship
+from .serializers import RelationshipSerializer
 
 
-@require_http_methods(["POST"])
-def unfollow(request, username):
-    u = User.objects.get(username__iexact=username)
-    Relationship.objects.get(from_user=request.user, to_user=u, status=1).delete()
-    return redirect('/')
+class RelationshipViews(CreateAPIView, DestroyAPIView):
+    queryset = Relationship.objects.all()
+    serializer_class = RelationshipSerializer
+
+
+class UserRelationshipViews(ListAPIView):
+    serializer_class = RelationshipSerializer
+
+    def get_queryset(self):
+        return Relationship.objects.filter(from_user=self.kwargs['users_pk'])

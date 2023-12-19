@@ -5,6 +5,7 @@ import re
 
 
 # this function finds the hashtags in the tweet_text and creates the new hashtag objects
+# TODO: look into the possibility of moving this piece of code to the hashtag app itself
 def process_hashtags(text, tweet):
     regex = "#(\w+)"
     hashtag_list = re.findall(regex, text)

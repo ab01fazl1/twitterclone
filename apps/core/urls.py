@@ -7,7 +7,7 @@ from user.views import UserViewSet
 from tweet.views import TweetUserViewSet, TweetView
 from like.views import LikeViewSet
 from Hashtag.views import HashtagViewSet
-
+from following.views import RelationshipViews, UserRelationshipViews
 
 # users and users_tweets routes
 router = routers.DefaultRouter()
@@ -22,6 +22,13 @@ like_router.register(r'likes', LikeViewSet, basename='like')
 
 # hashtags routes
 router.register(r'hashtags', HashtagViewSet, basename='hashtags')
+
+# relationship router for follow, unfollow, block and listings of the relationships
+# TODO: find out if there is a better name for this route
+router.register(r'action', RelationshipViews, basename='action')
+
+# this is for the user/following, user/follower routes
+users_router.register(r'list', UserRelationshipViews, basename='list')
 
 
 urlpatterns = [

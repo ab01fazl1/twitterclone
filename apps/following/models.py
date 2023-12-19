@@ -19,32 +19,33 @@ class Relationship(models.Model):
         status_for_print = 'follows' if self.status == 1 else 'blocked'
         return f'{self.from_user} {status_for_print} {self.to_user}'
 
-    def add_relationship(self, user, status):
-        relationship, created = Relationship.objects.get_or_create(
-            from_user=self,
-            to_user=user,
-            status=status)
-        return relationship
-
-    def remove_relationship(self, user, status):
-        Relationship.objects.filter(
-            from_user=self,
-            to_user=user,
-            status=status).delete()
-        return
-
-    def get_relationships(self, status):
-        return self.relationships.filter(
-            to_user__status=status,
-            to_user__from_user=self)
-
-    def get_related_to(self, status):
-        return self.related_to.filter(
-            from_user__status=status,
-            from_user__to_user=self)
-
-    def get_following(self):
-        return self.get_relationships(RELATIONSHIP_FOLLOWING)
-
-    def get_followers(self):
-        return self.get_related_to(RELATIONSHIP_FOLLOWING)
+    # TODO move these to services.py
+    # def add_relationship(self, user, status):
+    #     relationship, created = Relationship.objects.get_or_create(
+    #         from_user=self,
+    #         to_user=user,
+    #         status=status)
+    #     return relationship
+    #
+    # def remove_relationship(self, user, status):
+    #     Relationship.objects.filter(
+    #         from_user=self,
+    #         to_user=user,
+    #         status=status).delete()
+    #     return
+    #
+    # def get_relationships(self, status):
+    #     return self.relationships.filter(
+    #         to_user__status=status,
+    #         to_user__from_user=self)
+    #
+    # def get_related_to(self, status):
+    #     return self.related_to.filter(
+    #         from_user__status=status,
+    #         from_user__to_user=self)
+    #
+    # def get_following(self):
+    #     return self.get_relationships(RELATIONSHIP_FOLLOWING)
+    #
+    # def get_followers(self):
+    #     return self.get_related_to(RELATIONSHIP_FOLLOWING)

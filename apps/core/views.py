@@ -122,30 +122,7 @@
 #         data['retweets'] = [i for i in Retweet.objects.filter(user=flwr)]
 #
 #     return data
-#
-#
-# def home(request):
-#     if request.user.get_the_shit():
-#         context = {'object_list': handle_query(request.user.get_the_shit(), request_user=request.user)}
-#         return render(request, 'home.html', context)
-#     else:
-#         return render(request, 'home.html')
-#
-#
-# def entry(request):
-#     if request.user.is_authenticated:
-#         return redirect('home')
-#     else:
-#         return redirect('login')
-#
-#
-# def process_hashtags(text, tweet):
-#     regex = "#(\w+)"
-#     hashtag_list = re.findall(regex, text)
-#     for hashtag in hashtag_list:
-#         h = Hashtag.objects.create(name=hashtag)
-#         h.tweet.add(tweet)
-#         h.save()
+
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
