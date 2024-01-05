@@ -29,3 +29,5 @@ Testing
 add celery jobs to automate processes
 
 message broking with rabbitMQ
+
+swagger docs
