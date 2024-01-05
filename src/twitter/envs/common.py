@@ -42,6 +42,10 @@ APPS = [
 ]
 FRAMEWORKS = [
     'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
+    'corsheaders',
+    'channels',
     'arrow',
     'rest_framework_nested',
 ]
@@ -61,6 +65,7 @@ AUTH_USER_MODEL = 'user.User'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -87,7 +92,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'twitter.wsgi.application'
-
+ASGI_APPLICATION = 'twitter.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -143,4 +148,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # include apps directory
-sys.path.append(os.path.join(BASE_DIR, 'apps'))
+sys.path.append(os.path.join(BASE_DIR, '../../apps'))
+
+CELERY_BROKER_URL = 'redis:localhost:6379/1'
