@@ -3,11 +3,11 @@ from .views import entry
 from rest_framework_nested import routers
 
 # views imports
-from user.views import UserViewSet
-from tweet.views import TweetUserViewSet, TweetView
-from like.views import LikeViewSet
-from Hashtag.views import HashtagViewSet
-from following.views import RelationshipViews, UserRelationshipViews
+from twitter.apps.user.views import UserViewSet
+from twitter.apps.tweet.views import TweetUserViewSet, TweetView
+from twitter.apps.like.views import LikeViewSet
+from twitter.apps.Hashtag.views import HashtagViewSet
+from twitter.apps.following.views import RelationshipViews, UserRelationshipViews
 
 # users and users_tweets routes
 router = routers.DefaultRouter()

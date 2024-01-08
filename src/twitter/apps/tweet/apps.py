@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class HashtagConfig(AppConfig):
+class TweetConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Hashtag'
+    name = 'twitter.apps.tweet'

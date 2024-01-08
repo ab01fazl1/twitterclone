@@ -33,12 +33,12 @@ ALLOWED_HOSTS = []
 
 # Application definition
 APPS = [
-    'core.apps.CoreConfig',
-    'user.apps.UserConfig',
-    'tweet.apps.TweetConfig',
-    'following.apps.FollowingConfig',
-    'like.apps.LikeConfig',
-    'Hashtag.apps.HashtagConfig',
+    'twitter.apps.core',
+    'twitter.apps.user',
+    'twitter.apps.tweet',
+    'twitter.apps.following',
+    'twitter.apps.like',
+    'twitter.apps.Hashtag',
 ]
 FRAMEWORKS = [
     'rest_framework',
@@ -94,21 +94,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'twitter.wsgi.application'
 ASGI_APPLICATION = 'twitter.asgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'twitter',
-        'USER': 'postgres',
-        'PASSWORD': '123',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -148,6 +133,20 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # include apps directory
-sys.path.append(os.path.join(BASE_DIR, '../../apps'))
+# sys.path.append(os.path.join(BASE_DIR, '../../apps'))
 
 CELERY_BROKER_URL = 'redis:localhost:6379/1'
+
+REST_FRAMEWORK = {
+    # tell rest framework to use drf spectacular schema
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# drf_spectacular settings for documentations
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
