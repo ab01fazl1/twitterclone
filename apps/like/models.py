@@ -1,5 +1,5 @@
 from django.db import models
-from tweet.models import Tweet
+from twitter.apps.tweet.models import Tweet
 from django.conf import settings
 
 
@@ -11,3 +11,7 @@ class Like(models.Model):
 
     def __str__(self):
         return '{} liked tweet id:{} by {}'.format(self.user, self.tweet.id, self.tweet.user)
+
+    class Meta:
+        verbose_name = 'like'
+        verbose_name_plural = 'likes'

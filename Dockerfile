@@ -11,7 +11,7 @@ WORKDIR src
 
 EXPOSE 8000
 
-RUN /py/bin/pip install -r /requirements/development.txt
+RUN /py/bin/pip install -r /requirements.txt
 
 # RUN apk add  geos gdal
 
@@ -24,9 +24,6 @@ RUN chmod -R +x /scripts && \
     chown -R twitter:twitter /vol && \
     chmod -R 755 /vol
 
-
 ENV PATH="/scripts:/py/bin:$PATH"
 
 USER twitter
-
-CMD ["run.sh"]

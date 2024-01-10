@@ -13,5 +13,9 @@ doc_patterns = [
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
-                  path('', include('apps.core.urls')),
+                  path('', include('twitter.apps.core.urls')),
 ] + doc_patterns
+
+admin.site.site_title = "twitter"
+admin.site.index_title = "twitter"
+admin.site.site_header = "twitter"

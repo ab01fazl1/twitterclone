@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Tweet, Reply, Quote
-from Hashtag.models import Hashtag
+from twitter.apps.Hashtag.models import Hashtag
 import re
 
 
