@@ -1,6 +1,6 @@
 from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView
-from .models import Relationship
-from .serializers import RelationshipSerializer
+from apps.following.models import Relationship
+from api.serializers.relationship import RelationshipSerializer
 
 
 class RelationshipViews(CreateAPIView, DestroyAPIView):
@@ -8,8 +8,9 @@ class RelationshipViews(CreateAPIView, DestroyAPIView):
     serializer_class = RelationshipSerializer
 
 
+# TODO change this view
 class UserRelationshipViews(ListAPIView):
     serializer_class = RelationshipSerializer
 
     def get_queryset(self):
-        return Relationship.objects.filter(from_user=self.kwargs['users_pk'])
+        return Relationship.objects.filter(from_user=self.kwargs["users_pk"])

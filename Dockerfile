@@ -1,29 +1,18 @@
-# i got this from the tutorial i learned docker from
-# im gonna change this later on
-FROM hemanhp/djbase:4.2.4
+# pull official base image
+FROM python:3.11.2-slim-buster
 
+# set working directory
+WORKDIR /app
 
-COPY ./requirements /requirements
-COPY ./scripts /scripts
-COPY ./src /src
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-WORKDIR src
+# install dependencies
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+
+# add app
+COPY . .
 
 EXPOSE 8000
-
-RUN /py/bin/pip install -r /requirements.txt
-
-# RUN apk add  geos gdal
-
-
-RUN chmod -R +x /scripts && \
-#    might not need static and media files
-    mkdir -p /vol/web/static && \
-    mkdir -p /vol/web/media && \
-    adduser --disabled-password --no-create-home twitter && \
-    chown -R twitter:twitter /vol && \
-    chmod -R 755 /vol
-
-ENV PATH="/scripts:/py/bin:$PATH"
-
-USER twitter

@@ -1,21 +1,20 @@
-from .common import *
+from .settings import *
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
-    'daphne',
-    'drf_spectacular',
+    "daphne",
+    "drf_yasg",
 ] + INSTALLED_APPS
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'twitter',
-        'USER': 'twitter',
-        'PASSWORD': '123@456',
-        'HOST': 'db',
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "twitter",
+        "USER": "postgres",
+        "PASSWORD": "mothertrucker",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
-

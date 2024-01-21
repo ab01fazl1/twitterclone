@@ -1,20 +1,6 @@
 version: "3.9"
 
 services:
-  app:
-    build:
-      context: .
-    command: >
-      sh -c "python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./src:/src
-      - ./data/web:/vol/web
-    depends_on:
-      - db
-
   db:
     image: postgres:15.4
     ports:
@@ -25,6 +11,26 @@ services:
       - POSTGRES_DB=twitter
       - POSTGRES_USER=twitter
       - POSTGRES_PASSWORD=123@456
+  
+  # redis:
+  #   image: redis:6.2-alpine
+  #   ports:
+  #     - 6379:6379
+  #   restart: always
+  #   volumes:
+  #     - redisdata:/data
+  
+  app:
+    build:
+      context: .
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
 
 volumes:
   twitter-data:

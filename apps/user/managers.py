@@ -3,14 +3,14 @@ from django.utils import timezone
 
 
 class UserManager(BaseUserManager):
-    def _create_user(self, username, password, is_staff, is_superuser, **extra_fields):
+    def _create_user(self, username, password, is_admin, is_superuser, **extra_fields):
         if not username:
-            raise ValueError('Users must have a unique username')
+            raise ValueError("Users must have a unique username")
         # username = self.username
         now = timezone.now()
         user = self.model(
             username=username,
-            is_staff=is_staff,
+            is_admin=is_admin,
             is_active=True,
             is_superuser=is_superuser,
             last_login=now,

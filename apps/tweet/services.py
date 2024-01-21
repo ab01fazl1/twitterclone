@@ -1,19 +1,39 @@
-# @require_http_methods(["GET"])
-# def tweet_like_list(request, tweet_pk):
-#     t = Tweet.objects.filter(id=tweet_pk)
-#     likes = Like.objects.filter(tweet=t)
-#     return render(request, 'tweet_like_list.html', {'likes': likes})
-
-# TODO replace this with a rest framework view that sends stuff from query.py
-# @require_http_methods(["GET"])
-# def tweet_quote_list(request, tweet_pk):
-#     t = Tweet.objects.filter(id=tweet_pk)
-#     quotes = Tweet.objects.filter(quote_to_tweet=t)
-#     return render(request, 'tweet_quote_list.html', {'quotes': quotes})
+from .models import Tweet
+from apps.hashtag.models import Hashtag
+import re
 
 
-# @require_http_methods(["GET"])
-# def tweet_retweet_list(request, tweet_pk):
-#     t = Tweet.objects.filter(id=tweet_pk)
-#     retweets = Retweet.objects.filter(tweet=t)
-#     return render(request, 'tweet_retweet_list.html', {'Retweet': retweets})
+def process_hashtags(text, tweet_obj):
+    regex = "#(\w+)"
+    hashtag_list = re.findall(regex, text)
+    for hashtag in hashtag_list:
+        h = Hashtag.objects.get_or_create(name=hashtag)
+        h.tweet.add(tweet_obj)
+        h.save()
+
+
+def create_tweet(user, text):
+    tweet = Tweet.objects.create(user=user, text=text)
+    process_hashtags(text, tweet)
+
+
+def create_quote(user, text, tweet_pk):
+    tweet_obj = Tweet.objects.filter(pk=tweet_pk)
+    quote = Tweet.objects.create(
+        user=user, text=text, parent_tweet=tweet_obj, type=Tweet.TweetType.QUOTE.value
+    )
+    process_hashtags(text, quote)
+
+
+def create_reply(user, text, tweet_pk):
+    tweet_obj = Tweet.objects.filter(pk=tweet_pk)
+    reply = Tweet.objects.create(
+        user=user, text=text, parent_tweet=tweet_obj, type=Tweet.TweetType.REPLY.value
+    )
+    process_hashtags(text, reply)
+
+
+def create_retweet(user, tweet_obj):
+    retweet = Tweet.objects.create(
+        user, parent_tweet=tweet_obj, type=Tweet.TweetType.RETWEET.value
+    )
