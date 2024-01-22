@@ -1,16 +1,20 @@
-from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView
 from apps.following.models import Relationship
 from api.serializers.relationship import RelationshipSerializer
 
 
-class RelationshipViews(CreateAPIView, DestroyAPIView):
-    queryset = Relationship.objects.all()
+# class RelationshipViews(CreateAPIView, DestroyAPIView):
+# queryset = Relationship.objects.all()
+# serializer_class = RelationshipSerializer
+
+
+class FollowView(CreateAPIView):
     serializer_class = RelationshipSerializer
 
 
-# TODO change this view
-class UserRelationshipViews(ListAPIView):
+class UnfollowView(DestroyAPIView):
     serializer_class = RelationshipSerializer
 
-    def get_queryset(self):
-        return Relationship.objects.filter(from_user=self.kwargs["users_pk"])
+
+class BlockView(CreateAPIView):
+    serializer_class = RelationshipSerializer

@@ -4,6 +4,6 @@ from apps.like.models import Like
 from api.serializers.like import LikeSerializer
 
 
-class LikeViewSet(CreateAPIView, DestroyAPIView):
+class LikeView(CreateAPIView, DestroyAPIView):
     queryset = Like.objects.all()
     serializer_class = LikeSerializer

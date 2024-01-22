@@ -5,7 +5,7 @@ from rest_framework import status
 
 from apps.user.models import User, Profile
 from apps.user.services import create_user
-from api.serializers.users import UserSerializer, ProfileSerializer
+from api.serializers.users import GetUserSerializer, UserSerializer, ProfileSerializer
 
 
 class CreateUserView(GenericAPIView, CreateModelMixin):
@@ -29,10 +29,10 @@ class CreateUserView(GenericAPIView, CreateModelMixin):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class GetProfileView(GenericAPIView, RetrieveModelMixin):
+class GetUserView(GenericAPIView, RetrieveModelMixin):
 
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
+    queryset = User.objects.all()
+    serializer_class = GetUserSerializer
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -48,5 +48,6 @@ class UpdateProfileView:
         pass
 
 
+# write a function based view for reset password
 class ResetPasswordView:
     pass

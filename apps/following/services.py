@@ -1,8 +1,8 @@
 from .models import Relationship
 
 
-def get_follower(user):
-    return Relationship.objects.filter(from_user=user)
+def get_follower(user_pk):
+    return Relationship.objects.filter(from_user=user_pk)
 
 
 def get_follower_count(user):
