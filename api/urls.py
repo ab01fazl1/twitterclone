@@ -37,7 +37,7 @@ and i didnt use drf routers because im not using viewsets in my views
 tweet_patterns = [
     path("create_tweet/", CreateTweetView.as_view()),
     path("create_reply/", CreateReplyView.create),
-    # path("create_retweet/", CreateRetweetView.create),
+    path("create_retweet/", CreateRetweetView.as_view()),
     path("create_quote/", CreateQuoteView.create),
     path("tweet/<int:pk>/", GetTweetView.as_view(), name="tweet_view"),
 ]
@@ -45,6 +45,7 @@ tweet_patterns = [
 user_patterns = [
     path("create_user/", CreateUserView.as_view(), name="create-user"),
     path("user/<int:pk>/", GetUserView.as_view(), name="user-view"),
+    # TODO complete these
     # path("update_profile/", UpdateProfileView.as_view(), name="update-profile"),
     # path("update_user/", UpdateUserView.as_view(), name="update-user"),
     # path("reset_password/", ResetPasswordView.as_view(), name="reset-password"),
@@ -59,9 +60,9 @@ hashtag_patterns = [
 ]
 
 relationship_patterns = [
-    # path('follow/', FollowView.as_view(), name='Follow'),
-    # path('unfollow/', UnfollowView.as_view(), name='Unfollow'),
-    # path('block/', BlockView.as_view(), name='Block'),
+    path("follow/", FollowView.as_view(), name="Follow"),
+    path("unfollow/", UnfollowView.as_view(), name="Unfollow"),
+    path("block/", BlockView.as_view(), name="Block"),
 ]
 
 urlpatterns = (

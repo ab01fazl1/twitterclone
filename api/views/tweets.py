@@ -2,6 +2,7 @@ from rest_framework.response import Response
 
 from rest_framework import status
 from api.serializers.tweets import (
+    RetweetCreateSerializer,
     TweetCreateSerializer,
     ReplyCreateSerializer,
     GetTweetSerializer,
@@ -66,4 +67,4 @@ class CreateQuoteView(GenericAPIView):
 
 
 class CreateRetweetView(GenericAPIView):
-    pass
+    serializer_class = RetweetCreateSerializer
