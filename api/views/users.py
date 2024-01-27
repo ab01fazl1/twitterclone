@@ -3,9 +3,9 @@ from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin
 from rest_framework.response import Response
 from rest_framework import status
 
-from apps.user.models import User, Profile
+from apps.user.models import User
 from apps.user.services import create_user
-from api.serializers.users import GetUserSerializer, UserSerializer, ProfileSerializer
+from api.serializers.users import GetUserSerializer, UserSerializer
 
 
 class CreateUserView(GenericAPIView, CreateModelMixin):
@@ -36,18 +36,3 @@ class GetUserView(GenericAPIView, RetrieveModelMixin):
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
-
-
-class UpdateUserView:
-    def partial_update(self, request, *args, **kwargs):
-        pass
-
-
-class UpdateProfileView:
-    def partial_update(self, request, *args, **kwargs):
-        pass
-
-
-# write a function based view for reset password
-class ResetPasswordView:
-    pass

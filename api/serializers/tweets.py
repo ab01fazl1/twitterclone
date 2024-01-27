@@ -1,7 +1,5 @@
 from rest_framework import serializers
 from apps.tweet.models import Tweet
-
-# from apps.tweet.services import get_retweet_count
 from .users import UserSerializer
 
 

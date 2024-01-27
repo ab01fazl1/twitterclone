@@ -21,7 +21,3 @@ def get_blocked(user):
     return Relationship.objects.filter(
         from_user=user, status=Relationship.RELATIONSHIP_STATUSES.BLOCKED
     )
-
-
-# def create_realtionship(user, to_user, status):
-# Relationship.objects

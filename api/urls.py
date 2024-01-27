@@ -1,10 +1,6 @@
 from django.urls import path, include
 from rest_framework_nested import routers
 
-# url patterns that I want
-# /login/
-# /user/tweets/
-# tweet/pk/likes
 
 from .views.tweets import (
     CreateTweetView,
@@ -16,9 +12,6 @@ from .views.tweets import (
 from .views.users import (
     CreateUserView,
     GetUserView,
-    ResetPasswordView,
-    UpdateProfileView,
-    UpdateUserView,
 )
 from .views.like import LikeView
 from .views.hashtag import HashtagListView
@@ -45,10 +38,6 @@ tweet_patterns = [
 user_patterns = [
     path("create_user/", CreateUserView.as_view(), name="create-user"),
     path("user/<int:pk>/", GetUserView.as_view(), name="user-view"),
-    # TODO complete these
-    # path("update_profile/", UpdateProfileView.as_view(), name="update-profile"),
-    # path("update_user/", UpdateUserView.as_view(), name="update-user"),
-    # path("reset_password/", ResetPasswordView.as_view(), name="reset-password"),
 ]
 
 like_patterns = [

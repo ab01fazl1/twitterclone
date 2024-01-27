@@ -43,11 +43,7 @@ APPS = [
 FRAMEWORKS = [
     "rest_framework",
     "rest_framework.authtoken",
-    "django_filters",
     "corsheaders",
-    "channels",
-    "arrow",
-    "rest_framework_nested",
 ]
 
 INSTALLED_APPS = (
@@ -140,3 +136,11 @@ STATIC_URL = "/static/"
 # sys.path.append(os.path.join(BASE_DIR, '../../apps'))
 
 CELERY_BROKER_URL = "redis:localhost:6379/1"
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+}

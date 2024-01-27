@@ -4,7 +4,6 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "daphne",
-    "drf_yasg",
 ] + INSTALLED_APPS
 
 
